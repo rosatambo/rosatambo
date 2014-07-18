@@ -16,29 +16,28 @@ lastgenfile.close
 
 tobuild = targetunused - ( lastgen - nowusing )
 if tobuild == 0
- puts "No files to build. Exiting"
+# puts "No files to build. Exiting"
  exit
 end
 
-puts "Files to build: #{tobuild}"
+#puts "Files to build: #{tobuild}"
 
 tobuild.times do
 
-#  rolls = rand(334..338)  
-  rolls = 1
+  rolls = rand(334..338)  
   raw = ""
 
   rolls.times do
     raw = raw + "R,P,S,"    #start with even number of R,P,S so that the deck is mostly balanced
-    @rockrand = rand(1..2)  #randomize number of rocks in deck
+    @rockrand = rand(1..50)  #randomize number of rocks in deck
     @rockrand.times do
       raw = raw + "R,"
     end
-    @paperrand = rand(1..2)  #randomize number of scisors in deck
+    @paperrand = rand(1..50)  #randomize number of scisors in deck
     @paperrand.times do
       raw = raw + "P,"
     end
-    @scisrand = rand(1..2)  #randomize number of scissors in deck
+    @scisrand = rand(1..50)  #randomize number of scissors in deck
     @scisrand.times do
       raw = raw + "S,"
     end
@@ -56,7 +55,7 @@ tobuild.times do
   fname = "/home/bitcoin/rosa/decks/" +lastgen.to_s + ".txt"
   hname = "/home/bitcoin/rosa/hashes/" +lastgen.to_s + ".hash"
 
-  puts "Building #{fname}"
+#  puts "Building #{fname}"
 
   deckfile = File.open(fname, "w")
   deckfile.print "Rosatambo Throw Deck # #{lastgen} \n"
@@ -72,12 +71,12 @@ tobuild.times do
 end
 
 commitcomment = "Update lastgen to #{lastgen}"
-puts commitcomment
+#puts commitcomment
 lastgenfile 	= File.open(lgf, "w")
 lastgenfile.print lastgen
 lastgenfile.close
 
-#  commit and send to github
+#  commit and send to github - won't work if running from tools directory :)
 
 system ("git add --all")
 system ("git commit -m \"#{commitcomment}\"")
