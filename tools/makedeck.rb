@@ -24,11 +24,23 @@ puts "Files to build: #{tobuild}"
 
 tobuild.times do
 
-  rolls = rand(334..338)
+  rolls = rand(334..338)  
   raw = ""
 
   rolls.times do
-    raw = raw + "R,P,S,"
+    raw = raw + "R,P,S,"    #start with even number of R,P,S so that the deck is mostly balanced
+    rockrand = rand(1..50)  #randomize number of rocks in deck
+    rockrand.times do
+      raw = raw + "R,"
+    end
+    paperrand = rand(1..50)  #randomize number of scisors in deck
+    paperrand.times do
+      raw = raw + "P,"
+    end
+    scisrand = rand(1..50)  #randomize number of scissors in deck
+    scisrand.times do
+      raw = raw + "S,"
+    end
   end
 
   raw = raw[0...-1]
