@@ -24,31 +24,41 @@ puts "Files to build: #{tobuild}"
 
 tobuild.times do
 
-  rolls = rand(334..338)  
+#  rolls = rand(334..338)  
+  rolls = 1
   raw = ""
 
   rolls.times do
     raw = raw + "R,P,S,"    #start with even number of R,P,S so that the deck is mostly balanced
-    rockrand = rand(1..50)  #randomize number of rocks in deck
-    rockrand.times do
+    @rockrand = rand(1..2)  #randomize number of rocks in deck
+    @rockrand.times do
       raw = raw + "R,"
     end
-    paperrand = rand(1..50)  #randomize number of scisors in deck
-    paperrand.times do
+    @paperrand = rand(1..2)  #randomize number of scisors in deck
+    @paperrand.times do
       raw = raw + "P,"
     end
-    scisrand = rand(1..50)  #randomize number of scissors in deck
-    scisrand.times do
+    @scisrand = rand(1..2)  #randomize number of scissors in deck
+    @scisrand.times do
       raw = raw + "S,"
     end
   end
+
+
+  rolls = rolls *3
+  puts "Base Rolls: #{rolls}"
+  puts "Extra rocks: #{@rockrand}"
+  puts "Extra paper: #{@paperrand}"
+  puts "Extra scissors: #{@scisrand}"
+
+  rolls = rolls + @rockrand + @paperrand + @scisrand
+  puts "Grand total: #{rolls}:"
 
   raw = raw[0...-1]
   throws = raw.split(",").shuffle!.shuffle!.shuffle!
   deck = throws.join
   deckhash = Digest::SHA256.hexdigest(deck)
 
-  rolls = rolls *3
 
   lastgen += 1
   fname = "/home/bitcoin/rosa/decks/" +lastgen.to_s + ".txt"
