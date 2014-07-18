@@ -44,15 +44,7 @@ tobuild.times do
     end
   end
 
-
-  rolls = rolls *3
-  puts "Base Rolls: #{rolls}"
-  puts "Extra rocks: #{@rockrand}"
-  puts "Extra paper: #{@paperrand}"
-  puts "Extra scissors: #{@scisrand}"
-
-  rolls = rolls + @rockrand + @paperrand + @scisrand
-  puts "Grand total: #{rolls}:"
+  rolls = rolls *3 + @rockrand + @paperrand + @scisrand
 
   raw = raw[0...-1]
   throws = raw.split(",").shuffle!.shuffle!.shuffle!
@@ -87,7 +79,7 @@ lastgenfile.close
 
 #  commit and send to github
 
-system ("git add .")
+system ("git add --all")
 system ("git commit -m \"#{commitcomment}\"")
 system ("git push origin master")
 
